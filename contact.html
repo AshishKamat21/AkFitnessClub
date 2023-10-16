@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AkFitness</title>
+    <link rel="stylesheet" href="style.css">
+  
+
+
+</head>
+<body>
+    
+<!------------Header--------------------->
+
+
+    <div id="header">
+        <div class="container">
+            <div id="image" >
+               <img style="height: 100px; width: 60%;" src="2.png">
+            </div>
+           
+            <div class="navigation">
+                <ul >
+                    <li > <button  href="index.html" style="text-decoration: none;"  onclick = "window.location.href='index.html';" >         Home</a></button></li>
+                    <li><button href="aboutus.html" style="text-decoration: none;" onclick = "window.location.href='aboutus.html';">    About</button></li>
+                    <li><button href="contact.html" style="text-decoration: none;"onclick = "window.location.href='contact.html';">    Contact Us</button></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    
+    <div id="cc">
+        <div id="cy">
+            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2319.789982893927!2d73.82220398629343!3d18.459855543988635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc29582892a0231%3A0xea9dbbcffddafdbd!2sNavale%20Bridge%20Bus%20Stop!5e0!3m2!1sen!2sin!4v1662304326859!5m2!1sen!2sin" style="margin-top: 10px;width: 100%;height: 700px;"></iframe> -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d236.43698878860616!2d73.85299850737837!3d18.52927175997832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1697473287523!5m2!1sen!2sin"   style="margin-top: 10px;width: 100%;height: 700px;"></iframe>
+            <div class="contact2">
+                <form name="submit-to-google-sheet">
+                <input type="text" name="Name" placeholder="Name" required><br>
+                <input type="email" name="Email" placeholder="Email" required><br>
+                <input type="tel" name="mobileno" placeholder="Mobile" required><br>
+                <textarea name="Message" rows="6" placeholder="Message" required cols="4"></textarea><br>
+                <textarea name="Time" id="Time" rows="1" hidden></textarea>
+                <button type="submit" onclick="refreshTime()" class="btn "> Enquire</button>
+                </form>
+            <span id="msg">
+           
+
+            </span>
+            </div>
+        </div>
+    </div>
+    <!------------------------Footer------------------>
+
+    <div id="header2" style="background-color: aqua;">
+        <div class="container2" >
+            <div id="image2" >
+              
+                <!-- <img style="height: 100px; width: 60%;margin: top 2px;" src="2.png"> -->
+     
+            </div>     
+                   
+         <div class="copyright">
+                <p>© 2023 Ak's Fitness Club All Rights Reserved — @akfitnessclub</p>
+        </div>    
+        </div>
+
+    </div>
+
+    <script>
+        `use strict`;
+        function refreshTime() {
+             const timeDisplay = document.getElementById("Time");
+            //   const dateString = new Date().toLocaleString();
+            //   const formattedString = dateString.replace(", ", " - ");
+            var formattedString = new Date();
+            timeDisplay.textContent = formattedString;
+            }
+            setInterval(refreshTime, 1000);
+            //     var datetime = new Date();
+            // console.log(datetime);
+            // document.getElementById("Time").textContent = datetime; //it will print on html page
+            
+            
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwhNDcsLFaBLxxrvPcyd7XUGNxI36bEBlesDO5qcJhfMO23c2ZMT8p1McU-i9RasL3F/exec'
+            const form = document.forms['submit-to-google-sheet']
+            const msg=document.getElementById("msg")
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response =>{
+                    let machineId = localStorage.getItem('MachineId');
+                    msg.innerHTML=" ✅ Message Sent Successdully "
+                    setTimeout(function(){
+                        msg.innerHTML=""
+                    },5000)
+                    form.reset()
+                })
+                .catch(error => console.error('Error!', error.message))
+            })
+          </script>
+
+</body>
+
+</html>
